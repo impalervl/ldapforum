@@ -32,6 +32,7 @@ class ThreadController extends Controller
      */
     public function create()
     {
+        $this->authorize('create');
         return view('thread.create');
     }
 
@@ -85,6 +86,8 @@ class ThreadController extends Controller
      */
     public function update(Request $request, Thread $thread)
     {
+        $this->authorize('update');
+
         if(auth()->user()->id !== $thread->user_id){
 
             return redirect()->back()->withMessage('no access');
@@ -109,6 +112,7 @@ class ThreadController extends Controller
      */
     public function destroy(Thread $thread)
     {
+        $this->authorize('delete');
         if(auth()->user()->id !== $thread->user_id){
 
             return redirect()->back()->withMessage('no access');
